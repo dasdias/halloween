@@ -1,11 +1,11 @@
 halloween = {
 
-	init : () => {
+	init: () => {
 
 		halloween.create_menu();
 	},
 
-	create_menu : () => {
+	create_menu: () => {
 
 		let menu_width = $('header nav').width(),
 			menu_element = $('header nav span'),
@@ -19,37 +19,33 @@ halloween = {
 		});
 	},
 
-	show_popup : (param, element) => {
+	show_popup: (param, element) => {
 
 		let main_element = $('.popup'),
 			overlay_element = $('.overlay');
 
-		if (param)
-		{
+		if (param) {
 			let product_element = $(element);
 
 			main_element.find('[name=product-id]').val(product_element.parents('.product-parent').data('id'));
 
 			main_element.show();
 			overlay_element.show();
-		}
-		else
-		{
+		} else {
 			main_element.hide();
 			overlay_element.hide();
 		}
 	},
 
-	send_order : () => {
+	send_order: () => {
 		let url = '/ajax.php',
 			data = {
 				fio: $('[name=fio]').val(),
 				tel: $('[name=phone]').val(),
 				email: $('[name=email]').val(),
 				comment: $('[name=comment]').val(),
-				product_Id: $('[name=comment]').val(),
+				product_id: $('[name=product-id]').val(),
 			};
-			// console.log(data);
 		$.ajax({
 			url: url,
 			type: "POST",
@@ -57,20 +53,33 @@ halloween = {
 			dataType: 'json',
 			success: (response) => {
 
-				if (!response['error']) {
-						console.log('Ошибок нет');
+				
+				if (response['error']) {
+					$('.js_error').html(response['error']);
 				}
-					console.log(response['error']);
+				if (response['res']) {
+					$('.js_error').html("Ваш заказ оформлен");
+					$('input').val('');
+					$('textarea').val('');
+				}
 			}
 		});
 	},
 };
 
 $(document)
-	.on('click', '.js_buy', function () { halloween.show_popup(true, this) })
-	.on('click', '.js_close_popup', function () { halloween.show_popup(false) })
-	.on('click', '.js_overlay', function () { halloween.show_popup(false) })
-	.on('click', '.js_send', function () { halloween.send_order(); });
+	.on('click', '.js_buy', function () {
+		halloween.show_popup(true, this)
+	})
+	.on('click', '.js_close_popup', function () {
+		halloween.show_popup(false)
+	})
+	.on('click', '.js_overlay', function () {
+		halloween.show_popup(false)
+	})
+	.on('click', '.js_send', function () {
+		halloween.send_order();
+	});
 
 $(() => {
 	halloween.init();
@@ -84,4 +93,3 @@ $(() => {
 		arrows: false,
 	});
 });
-

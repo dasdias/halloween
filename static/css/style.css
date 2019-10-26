@@ -216,3 +216,7 @@ footer {
 	width: 300px;
 	margin: 10px auto;
 }
+.js_error {
+	text-align: center;
+	color: red;
+}

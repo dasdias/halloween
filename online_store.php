@@ -38,7 +38,7 @@
 				<h2>Товары</h2>
 				<div class="row">
 				<?php foreach ($goods as $key => $item) { ?>
-					<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3" data-id="<?=$item['id']?>">
+					<div class="col-xs-6 col-sm-4 col-md-3 col-lg-3 product-parent" data-id="<?=$item['id']?>">
 						<div class="product">
 							<div class="product_pic" style="background: url('<?=$item['pic']?>') no-repeat; background-size: auto 100%; background-position: center"></div>
 							<span class="product_name"><?=$item['name']?></span>
@@ -56,6 +56,7 @@
 		<div class="popup">
 			<h3>Оформление заказа</h3><i class="fas fa-times close_popup js_close_popup"></i>
 			<div class='js_error'></div>
+			<input type="hidden" name="product-id">
 			<input type="text" name="fio" placeholder="Ваше имя">
 			<input type="text" name="phone" placeholder="Телефон">
 			<input type="text" name="email" placeholder="e-mail">
